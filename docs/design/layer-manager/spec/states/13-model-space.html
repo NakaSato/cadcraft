@@ -1,0 +1,939 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Layer Manager — 13-model-space</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#8fc1ff}a:hover{color:#c3ddff}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #3d8bfd;outline-offset:1px}
+</style>
+</head><body>
+
+<div style="width: 1440px; height: 860px; position: relative; overflow: hidden; background-color: #22282f; background-image: linear-gradient(#29303a 1px, transparent 1px), linear-gradient(90deg, #29303a 1px, transparent 1px); background-size: 24px 24px; font-family: 'IBM Plex Sans', -apple-system, 'Segoe UI', system-ui, sans-serif; font-size: 13px; color: #d7dbe0;">
+
+  <nav aria-label="Menu bar" style="height: 30px; display: flex; align-items: center; gap: 2px; padding: 0 8px; background: #2b313b; border-bottom: 1px solid #1a1f25;">
+    <span aria-hidden="true" style="width: 30px; height: 24px; display: grid; place-items: center; margin-right: 4px;">
+      <svg width="18" height="18" viewBox="0 0 72 72"><rect x="2" y="2" width="68" height="68" rx="16" fill="#22282f" stroke="#6b7586" stroke-width="3"></rect><path d="M18 54L54 18" stroke="#cfd4db" stroke-width="6" stroke-linecap="round"></path><circle cx="36" cy="36" r="14" fill="none" stroke="#cfd4db" stroke-width="5"></circle><circle cx="54" cy="18" r="7" fill="#cfd4db"></circle></svg>
+    </span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">File</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Edit</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">View</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Insert</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Format</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Tools</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Draw</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Dimension</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Modify</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Window</span>
+    
+      <span style="height: 24px; display: flex; align-items: center; padding: 0 9px; border-radius: 5px; color: #d7dbe0;">Help</span>
+    
+    <span style="margin-left: auto; color: #878d96; font-size: 12px;">apartment.dxf · Model</span>
+  </nav>
+
+  <section role="dialog" aria-labelledby="lay-title" style="position: absolute; left: 40px; top: 56px; width: 1360px; height: 772px; display: flex; flex-direction: column; background: #3b4453; border: 1px solid #232930; border-radius: 6px; box-shadow: 10px 20px 15px rgba(0,0,0,0.376); overflow: hidden;">
+
+    <header style="height: 30px; flex-shrink: 0; display: grid; grid-template-columns: 30px 1fr 30px; align-items: center; background: #313844; border-bottom: 1px solid #232930;">
+      <span></span>
+      <h1 id="lay-title" style="margin: 0; font-size: 13px; font-weight: 500; text-align: center;">Layers</h1>
+      <button aria-label="Close" style="width: 24px; height: 24px; border: 0; border-radius: 6px; background: transparent; display: grid; place-items: center; cursor: pointer;">
+        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.4" stroke-linecap="round"><path d="M1 1l8 8M9 1L1 9"></path></svg>
+      </button>
+    </header>
+
+    <div role="toolbar" aria-label="Layer tools" style="height: 42px; flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 0 12px; border-bottom: 1px solid #232930;">
+      <button onclick="" title="New layer (⌥N)" style="height: 26px; display: flex; align-items: center; gap: 6px; padding: 0 10px; border: 0; border-radius: 6px; background: #505a6d; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">
+        <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#eef1f4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l8-4 8 4-8 4z M2 12l8 4 5-2.5 M15 11v6 M12 14h6"></path></svg>
+        New Layer
+      </button>
+      <button onclick="" aria-label="New layer, frozen in every existing viewport" title="New layer, frozen in every existing viewport" style="width: 30px; height: 26px; border: 0; border-radius: 6px; background: #505a6d; display: grid; place-items: center; cursor: pointer;">
+        <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l8-4 8 4-8 4z M2 12l8 4 3-1.5 M16 10v8 M12.5 12l7 4 M12.5 16l7-4"></path></svg>
+      </button>
+      <button onclick="" aria-label="Delete layer" title="Delete layer (only unused layers)" style="width: 30px; height: 26px; border: 0; border-radius: 6px; background: #505a6d; display: grid; place-items: center; cursor: pointer;">
+        <svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h12 M8 6V4h4v2 M6 6l1 11h6l1-11"></path></svg>
+      </button>
+      <button onclick="" aria-label="Make the selected layer current" title="Make current (double-click a row)" style="width: 30px; height: 26px; border: 0; border-radius: 6px; background: #505a6d; display: grid; place-items: center; cursor: pointer;">
+        <svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+      </button>
+      <span style="width: 1px; height: 18px; margin: 0 4px; background: #232930;"></span>
+
+      <div style="position: relative;">
+        <button onclick="" aria-expanded="false" style="height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #232930; border-radius: 6px; background: #313844; color: #d7dbe0; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">
+          <span style="color: #878d96;">State</span>
+          <span style="color: #eef1f4; font-weight: 500;">Working</span>
+          <svg width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="#a3aab4" stroke-width="1.4" stroke-linecap="round"></path></svg>
+        </button>
+        
+      </div>
+
+      <span style="flex: 1;"></span>
+
+      <div role="radiogroup" aria-label="What the table edits" style="height: 28px; display: flex; align-items: center; gap: 2px; padding: 2px; background: #313844; border: 1px solid #232930; border-radius: 7px; box-sizing: border-box;">
+        <button role="radio" aria-checked="true" onclick="" style="height: 22px; padding: 0 10px; border: 0; border-radius: 5px; font: 12px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer; background: #505a6d; color: #eef1f4; opacity: 0.45;">Drawing</button>
+        <button role="radio" aria-checked="false" onclick="" style="height: 22px; padding: 0 10px; border: 0; border-radius: 5px; font: 12px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer; background: transparent; color: #a3aab4; opacity: 0.45;">Viewport: Enlarged Plan</button>
+      </div>
+
+      <label style="position: relative; display: block;">
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Search layers</span>
+        <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#878d96" stroke-width="1.8" stroke-linecap="round" style="position: absolute; left: 9px; top: 7px;"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="M13 13l4.5 4.5"></path></svg>
+        <input value="" oninput="" placeholder="Search layers  (A-* or *wall*)" style="width: 230px; height: 28px; box-sizing: border-box; padding: 0 10px 0 28px; border: 1px solid #232930; border-radius: 6px; background: #2b313b; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif;">
+      </label>
+      <button onclick="" aria-expanded="false" aria-label="Layer settings" title="Layer settings" style="width: 30px; height: 26px; border: 0; border-radius: 6px; background: #505a6d; display: grid; place-items: center; cursor: pointer;">
+        <svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="2.6"></circle><path d="M10 2.5v2.2 M10 15.3v2.2 M2.5 10h2.2 M15.3 10h2.2 M4.7 4.7l1.6 1.6 M13.7 13.7l1.6 1.6 M4.7 15.3l1.6-1.6 M13.7 6.3l1.6-1.6"></path></svg>
+      </button>
+    </div>
+
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 210px minmax(0, 1fr) 300px;">
+
+      <aside aria-label="Filters" style="display: flex; flex-direction: column; min-height: 0; border-right: 1px solid #232930; background: #363e4b;">
+        <div style="height: 32px; display: flex; align-items: center; gap: 6px; padding: 0 8px 0 12px;">
+          <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #878d96;">FILTERS</span>
+          <span style="flex: 1;"></span>
+          <div style="position: relative;">
+            <button onclick="" aria-expanded="false" aria-label="New filter" title="New filter" style="width: 24px; height: 22px; border: 0; border-radius: 5px; background: #505a6d; display: grid; place-items: center; cursor: pointer;">
+              <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round"><path d="M6 1.5v9 M1.5 6h9"></path></svg>
+            </button>
+            
+          </div>
+        </div>
+        <div style="flex: 1; min-height: 0; overflow: auto; padding: 0 6px 8px;">
+          
+            <div>
+              
+              <button onclick="" aria-pressed="true" title="" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: #505a6d; color: #eef1f4;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M2 8l8-4 8 4-8 4z M2 12l8 4 8-4"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">All layers</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">24</span>
+              </button>
+            </div>
+          
+            <div>
+              
+              <button onclick="" aria-pressed="false" title="" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: transparent; color: #d7dbe0;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M2 8l8-4 8 4-8 4z M7 15l2 2 4-4"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Used</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">22</span>
+              </button>
+            </div>
+          
+            <div>
+              
+              <button onclick="" aria-pressed="false" title="" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: transparent; color: #d7dbe0;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M8 12l4-4 M6 9l-2 2a3 3 0 0 0 4 4l2-2 M14 11l2-2a3 3 0 0 0-4-4l-2 2"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">From references</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">2</span>
+              </button>
+            </div>
+          
+            <div>
+              
+              <button onclick="" aria-pressed="false" disabled="" title="Open a layout to see viewport overrides" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: transparent; color: #6b7586;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M3 4h14v12H3z M7 8h6v4H7z"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Viewport overrides</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">3</span>
+              </button>
+            </div>
+          
+            <div>
+              
+                <div style="padding: 10px 8px 4px; font-size: 11px; color: #878d96;">Rule filters</div>
+              
+              <button onclick="" aria-pressed="false" title="" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: transparent; color: #d7dbe0;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M3 4h14l-5 6v5l-4 2v-7z"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Floor (red or cyan)</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">3</span>
+              </button>
+            </div>
+          
+            <div>
+              
+                <div style="padding: 10px 8px 4px; font-size: 11px; color: #878d96;">Groups</div>
+              
+              <button onclick="" aria-pressed="false" title="" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: transparent; color: #d7dbe0;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M2 6h6l2 2h8v8H2z"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Locked layers</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">3</span>
+              </button>
+            </div>
+          
+            <div>
+              
+              <button onclick="" aria-pressed="false" title="" style="width: 100%; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 8px; border: 0; border-radius: 5px; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; text-align: left; cursor: pointer; background: transparent; color: #d7dbe0;">
+                <svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#a3aab4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M2 6h6l2 2h8v8H2z"></path></svg>
+                <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Electrical</span>
+                <span style="font-size: 11.5px; color: #878d96; font-variant-numeric: tabular-nums;">5</span>
+              </button>
+            </div>
+          
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-top: 1px solid #232930;">
+          <input type="checkbox" id="lay-invert" onchange="" style="width: 14px; height: 14px; margin: 0; accent-color: #3d8bfd;">
+          <label for="lay-invert" style="font-size: 12.5px; cursor: pointer;">Invert filter</label>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 11.5px; color: #878d96;">⌘I</span>
+        </div>
+      </aside>
+
+      <div style="display: flex; flex-direction: column; min-width: 0; min-height: 0;">
+        <div style="flex: 1; min-height: 0; margin: 10px 12px 0; overflow: auto; background: #2b313b; border: 1px solid #232930; border-radius: 4px;">
+          <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-bottom: 1px solid #232930; font-size: 11.5px; font-weight: 500; color: #878d96; position: sticky; top: 0; background: #2b313b; z-index: 2;">
+            <span></span>
+            <button onclick="" style="display: flex; align-items: center; gap: 4px; height: 22px; padding: 0; border: 0; background: transparent; color: #878d96; font: 500 11.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer; text-align: left;">Name <span style="color: #a3aab4;">↑</span></button>
+            <span title="On" style="text-align: center;">On</span>
+            <span title="Frozen everywhere" style="text-align: center;">Frz</span>
+            <span title="Locked" style="text-align: center;">Lock</span>
+            <span title="Plot" style="text-align: center;">Plot</span>
+            <button onclick="" style="display: flex; align-items: center; gap: 4px; height: 22px; padding: 0; border: 0; background: transparent; color: #878d96; font: 500 11.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer; text-align: left;">Color <span style="color: #a3aab4;"></span></button>
+            <span>Linetype</span>
+            <span>Lineweight</span>
+            <span style="text-align: right;">Transp.</span>
+            <span>Description</span>
+            <div style="position: relative; display: flex; justify-content: flex-end;">
+              <button onclick="" aria-expanded="false" aria-label="Columns" title="Columns" style="width: 22px; height: 18px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer;">
+                <svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" fill="#a3aab4"><circle cx="4" cy="10" r="1.8"></circle><circle cx="10" cy="10" r="1.8"></circle><circle cx="16" cy="10" r="1.8"></circle></svg>
+              </button>
+              
+            </div>
+          </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">0</span>
+              </button>
+              <button onclick="" aria-label="Turn off 0" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze 0" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock 0" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot 0" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffffff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">white</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>Default<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;"></span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-ANNO-DIMS</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-ANNO-DIMS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-ANNO-DIMS" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-ANNO-DIMS" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-ANNO-DIMS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #00ffff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">cyan</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Dimensions</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-ANNO-TEXT</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-ANNO-TEXT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-ANNO-TEXT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-ANNO-TEXT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-ANNO-TEXT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffffff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">white</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.25 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Room names and notes</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; background: #3d4a5c; box-shadow: inset 0 0 0 1px #3d8bfd; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="true" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-DOOR</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-DOOR" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-DOOR" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-DOOR" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-DOOR" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ff7f00;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">30</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.25 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Doors and swings</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-FLOR-FIXT</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-FLOR-FIXT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-FLOR-FIXT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-FLOR-FIXT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-FLOR-FIXT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #00ffff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">cyan</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Kitchen and bath fixtures</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-FLOR-PATT</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-FLOR-PATT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-FLOR-PATT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-FLOR-PATT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-FLOR-PATT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ff0000;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">red</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.13 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">40<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Floor finish hatch</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-FLOR-STRS</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-FLOR-STRS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-FLOR-STRS" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-FLOR-STRS" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-FLOR-STRS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ff0000;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">red</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.25 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Stairs</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-FURN</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-FURN" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-FURN" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-FURN" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-FURN" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #808080;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">8</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.13 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">30<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Loose furniture</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-GLAZ</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-GLAZ" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-GLAZ" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-GLAZ" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-GLAZ" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #3f7fff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">141</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Windows</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-ROOF-OUTL</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-ROOF-OUTL" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-ROOF-OUTL" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-ROOF-OUTL" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-ROOF-OUTL" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #0000ff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">blue</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h4.5 M6.8 3h4.5 M13.5 3h4.5 M20.3 3h1.8" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">HIDDEN</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.25 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Roof outline above</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="Current layer" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#eef1f4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-WALL</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-WALL" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-WALL" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-WALL" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-WALL" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffffff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">white</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 3px; flex-shrink: 0; background: #a3aab4;"></span>0.50 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Walls</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A-WALL-PATT</span>
+              </button>
+              <button onclick="" aria-label="Turn off A-WALL-PATT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze A-WALL-PATT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock A-WALL-PATT" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot A-WALL-PATT" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #adadad;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">253</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.09 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">50<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Wall poche</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Defpoints</span>
+              </button>
+              <button onclick="" aria-label="Turn off Defpoints" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze Defpoints" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock Defpoints" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Plot Defpoints" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z M2.5 17.5l15-15"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffffff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">white</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>Default<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Never plots</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">E-LITE</span>
+              </button>
+              <button onclick="" aria-label="Turn off E-LITE" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze E-LITE" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock E-LITE" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot E-LITE" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ff00ff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">magenta</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Lighting</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">E-POWR</span>
+              </button>
+              <button onclick="" aria-label="Turn off E-POWR" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze E-POWR" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock E-POWR" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot E-POWR" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ff00ff;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">magenta</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h9 M13.5 3h8.5" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">DASHED</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Power outlets and circuits</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PV-ARRAY</span>
+              </button>
+              <button onclick="" aria-label="Turn off PV-ARRAY" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze PV-ARRAY" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock PV-ARRAY" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot PV-ARRAY" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #00ff00;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">green</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.35 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Solar modules</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PV-CABLE</span>
+              </button>
+              <button onclick="" aria-label="Turn off PV-CABLE" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze PV-CABLE" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock PV-CABLE" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot PV-CABLE" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffff00;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">yellow</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h9 M13.5 3h8.5" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">DASHED</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.25 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">DC cable runs</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PV-STRING</span>
+              </button>
+              <button onclick="" aria-label="Turn off PV-STRING" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze PV-STRING" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock PV-STRING" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot PV-STRING" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffff00;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">yellow</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">String numbering</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">S-COLS</span>
+              </button>
+              <button onclick="" aria-label="Turn off S-COLS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze S-COLS" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Unlock S-COLS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6a2.5 2.5 0 0 1 5 0V9"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot S-COLS" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ff0000;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">red</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.35 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Columns</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">S-GRID</span>
+              </button>
+              <button onclick="" aria-label="Turn off S-GRID" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze S-GRID" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Unlock S-GRID" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6a2.5 2.5 0 0 1 5 0V9"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot S-GRID" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #c0c0c0;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">9</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CENTER</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.13 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Structural grid</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">S-GRID-IDEN</span>
+              </button>
+              <button onclick="" aria-label="Turn off S-GRID-IDEN" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze S-GRID-IDEN" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Unlock S-GRID-IDEN" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6a2.5 2.5 0 0 1 5 0V9"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot S-GRID-IDEN" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #c0c0c0;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">9</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.18 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Grid bubbles</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #a3aab4;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;">site-plan | </span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">C-PROP</span>
+              </button>
+              <button onclick="" aria-label="Turn off site-plan|C-PROP" aria-pressed="true" disabled="" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze site-plan|C-PROP" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock site-plan|C-PROP" aria-pressed="false" disabled="" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot site-plan|C-PROP" aria-pressed="true" disabled="" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #00ff00;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">green</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PHANTOM</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 2px; flex-shrink: 0; background: #a3aab4;"></span>0.35 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Property line</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #a3aab4;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;">site-plan | </span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">C-TOPO</span>
+              </button>
+              <button onclick="" aria-label="Turn off site-plan|C-TOPO" aria-pressed="true" disabled="" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Thaw site-plan|C-TOPO" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v16 M3 6l14 8 M3 14l14-8 M8 3.5l2 2 2-2 M8 16.5l2-2 2 2"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock site-plan|C-TOPO" aria-pressed="false" disabled="" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot site-plan|C-TOPO" aria-pressed="true" disabled="" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #808080;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">8</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>0.09 mm<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">60<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;">Contours</span>
+              <span></span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 16px minmax(150px, 1.5fr) 30px 30px 30px 30px 108px 118px 92px 56px minmax(80px, 1fr) 26px; align-items: center; gap: 6px; height: 22px; padding: 0 8px; font-size: 12.5px; color: #d7dbe0;">
+              <span aria-label="" style="display: grid; place-items: center;">
+                <svg width="11" height="11" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="transparent" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"></path></svg>
+              </span>
+              <button onclick="" ondoubleclick="" aria-pressed="false" style="height: 100%; display: flex; align-items: center; gap: 4px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;">
+                <span style="color: #878d96;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">TEMP</span>
+              </button>
+              <button onclick="" aria-label="Turn off TEMP" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10s3.2-5.5 8.5-5.5S18.5 10 18.5 10s-3.2 5.5-8.5 5.5S1.5 10 1.5 10z M10 12.3a2.3 2.3 0 1 0 0-4.6a2.3 2.3 0 1 0 0 4.6z"></path></svg>
+              </button>
+              <button onclick="" aria-label="Freeze TEMP" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7z M10 2v1.8 M10 16.2V18 M2 10h1.8 M16.2 10H18 M4.3 4.3l1.3 1.3 M14.4 14.4l1.3 1.3 M4.3 15.7l1.3-1.3 M14.4 5.6l1.3-1.3"></path></svg>
+              </button>
+              <button onclick="" aria-label="Lock TEMP" aria-pressed="false" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#6b7586" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h10v8H5z M7.5 9V6.5a2.5 2.5 0 0 1 5 0"></path></svg>
+              </button>
+              <button onclick="" aria-label="Do not plot TEMP" aria-pressed="true" style="width: 26px; height: 20px; border: 0; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; justify-self: center; padding: 0;">
+                <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="#cfd4db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V3h8v5 M4 8h12v6h-2 M6 14H4V8 M6 12h8v5H6z"></path></svg>
+              </button>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; border: 1px solid #1a1f25; background: #ffff00;"></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">yellow</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 3h22" stroke="#a3aab4" stroke-width="1.3" stroke-linecap="round" fill="none"></path></svg><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span><span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4;"><span style="width: 16px; height: 1px; flex-shrink: 0; background: #a3aab4;"></span>Default<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; color: #a3aab4; justify-content: flex-end; font-variant-numeric: tabular-nums;">0<span style="width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-left: 4px; background: transparent;"></span></span>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #878d96;"></span>
+              <span></span>
+            </div>
+          
+          
+        </div>
+        <div style="height: 30px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 14px; font-size: 12px; color: #878d96;">
+          <span>Click to select · double-click to make current · ⇧/⌘-click for several · drag rows onto a group</span>
+        </div>
+      </div>
+
+      <aside aria-label="Layer A-DOOR" style="display: flex; flex-direction: column; min-height: 0; border-left: 1px solid #232930; background: #363e4b;">
+        
+        
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 14px; height: 14px; flex-shrink: 0; border-radius: 3px; border: 1px solid #1a1f25; background: #ff7f00;"></span>
+              <input value="A-DOOR" aria-label="Layer name" style="flex: 1; min-width: 0; height: 28px; box-sizing: border-box; padding: 0 8px; border: 1px solid #232930; border-radius: 5px; background: #2b313b; color: #eef1f4; font: 600 14px 'IBM Plex Sans', system-ui, sans-serif;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #a3aab4;">
+              <span>38 objects</span>
+              <span style="flex: 1;"></span>
+              
+              
+                <button onclick="" style="height: 24px; padding: 0 10px; border: 0; border-radius: 6px; background: #505a6d; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">Make Current</button>
+              
+            </div>
+
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #878d96;">PROPERTIES</span>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px 10px; align-items: center; font-size: 12.5px;">
+              <span style="color: #a3aab4;">Color</span>
+              <span style="height: 26px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border: 1px solid #232930; border-radius: 5px; background: #2b313b;"><span style="width: 11px; height: 11px; border-radius: 2px; border: 1px solid #1a1f25; background: #ff7f00;"></span>30<span style="flex: 1;"></span><svg width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="#a3aab4" stroke-width="1.4" stroke-linecap="round"></path></svg></span>
+              <span style="color: #a3aab4;">Linetype</span>
+              <div style="position: relative; min-width: 0;">
+                <button onclick="" aria-expanded="false" aria-label="Linetype: Continuous" style="width: 100%; height: 26px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border: 1px solid #232930; border-radius: 5px; background: #2b313b; color: #d7dbe0; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer; text-align: left;">
+                  <svg width="48" height="8" viewBox="0 0 48 8" aria-hidden="true" style="flex-shrink: 0;"><path d="M0 4h48" stroke="#cfd4db" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+                  <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Continuous</span>
+                  <span style="flex: 1;"></span>
+                  <svg width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="#a3aab4" stroke-width="1.4" stroke-linecap="round"></path></svg>
+                </button>
+                
+              </div>
+              <span style="color: #a3aab4;">Lineweight</span>
+              <span style="height: 26px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border: 1px solid #232930; border-radius: 5px; background: #2b313b;">0.25 mm<span style="flex: 1;"></span><svg width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="#a3aab4" stroke-width="1.4" stroke-linecap="round"></path></svg></span>
+              <label for="lay-trans" style="color: #a3aab4;">Transparency</label>
+              <span style="display: flex; align-items: center; gap: 8px;"><input id="lay-trans" type="range" min="0" max="90" value="0" style="flex: 1; min-width: 0; accent-color: #3d8bfd;"><span style="width: 32px; text-align: right; font-variant-numeric: tabular-nums;">0%</span></span>
+            </div>
+            
+
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #878d96;">PLOTTING</span>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px 10px; align-items: center; font-size: 12.5px;">
+              <span style="color: #a3aab4;">Plot style</span>
+              <span style="color: #878d96;">By color (table has no named styles)</span>
+              <span></span>
+              <label style="display: flex; align-items: center; gap: 8px;"><input type="checkbox" checked="" onchange="" style="width: 14px; height: 14px; margin: 0; accent-color: #3d8bfd;">Plot this layer</label>
+              <span></span>
+              <label style="display: flex; align-items: center; gap: 8px;"><input type="checkbox" onchange="" style="width: 14px; height: 14px; margin: 0; accent-color: #3d8bfd;">Frozen in new viewports</label>
+            </div>
+
+            <label style="display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #878d96;">DESCRIPTION</span>
+              <textarea rows="2" placeholder="What goes on this layer" style="resize: none; padding: 6px 8px; border: 1px solid #232930; border-radius: 5px; background: #2b313b; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif;">Doors and swings</textarea>
+            </label>
+
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #878d96;">OBJECTS ON THIS LAYER</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <button style="height: 26px; padding: 0 10px; border: 0; border-radius: 6px; background: #505a6d; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">Select</button>
+              <button onclick="" style="height: 26px; padding: 0 10px; border: 0; border-radius: 6px; background: #505a6d; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">Isolate</button>
+              <button style="height: 26px; padding: 0 10px; border: 0; border-radius: 6px; background: #505a6d; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">Merge Into…</button>
+              <button style="height: 26px; padding: 0 10px; border: 0; border-radius: 6px; background: #505a6d; color: #eef1f4; font: 12.5px 'IBM Plex Sans', system-ui, sans-serif; cursor: pointer;">Add to Group…</button>
+            </div>
+          </div>
+        
+      </aside>
+    </div>
+
+    <footer style="height: 34px; flex-shrink: 0; display: flex; align-items: center; gap: 12px; padding: 0 14px; background: #313844; border-top: 1px solid #232930; font-size: 12px; color: #a3aab4;"><span>Current layer: <span style="color: #eef1f4; font-weight: 500">A-WALL</span></span>
+      <span style="width: 1px; height: 14px; background: #232930"></span>
+      <span style="font-variant-numeric: tabular-nums">All layers: 24 of 24 layers</span>
+      <span style="flex: 1"></span>
+      
+      
+      <span style="width: 32px; text-align: right; color: #eef1f4; font-variant-numeric: tabular-nums"><br></span>
+    </footer>
+
+    
+  </section>
+</div>
+</body></html>
